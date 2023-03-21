@@ -63,8 +63,9 @@ app.get('/weather', (request, response) => {
 
 class hahah {
   constructor(weatherObj){
-    this.
-    this.
+    this.state = {
+      
+    };
   }
 }
 
