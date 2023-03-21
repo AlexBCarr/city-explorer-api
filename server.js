@@ -46,11 +46,11 @@ app.get('/hello', (request, response) => {
 
 app.get('/weather', (request, response) => {
   try {
-    let queriedWeather = request.query.weather;(
-    let dataToGroom = data.find
-    let dataToSend = new (dataToGroom)
+    // let queriedWeather = request.query.weather;(
+    // let dataToGroom = data.find
+    // let dataToSend = new (dataToGroom)
 
-    
+
 
     let foundWeather = data.find(hahah => hahah.weather === queriedWeather);
     response.status(200).send(`You are looking for a ${queriedWeather}`);
