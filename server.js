@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-console.log('Yes our first server!!');
+console.log('Yes our first server :)!!');
 
 
 // *** REQUIRES ****
@@ -10,7 +10,7 @@ require('dotenv').config();
 const cors = require('cors');
 
 
-let data = require('/.data/weather.json');
+let weather = require('/.data/weather.json');
 
 
 // *** once we breing in express we call it to create server ****
@@ -36,24 +36,26 @@ app.get('/', (request, response) => {
   response.status(200).send('Welcome to my server!');
 });
 
-app.get('/hello', (request, response) => {
-  console.log(request.query);
-  let userFirstName = request.query.firstName;
-  let userLastName = request.query.lastName;
 
-  response.status(404).send(`Hello ${userFirstName} ${userLastName}! Welcome to my server!`);
-});
-
-app.get('/weather', (request, response) => {
+app.get('/weather', (request, response, next) => {
   try {
-    // let queriedWeather = request.query.weather;(
-    // let dataToGroom = data.find
-    // let dataToSend = new (dataToGroom)
+
+    let lat = request.query.lat;
+    let lon = request.query.lon;
+    let cityName = request.query.searchQuery;
+
+    console.log(request.query);
+    console.log(lat, lon);
+
+    let city = weather.find(city => city.city_name.toLowerCase() === cityName.toLowerCase());
+
+    let weatherToSend = city.data.map(day => new Forecast(day));
+
+    request.status(200).send('weatherToSend');
+
+    console.log(weatherToSend);
 
 
-
-    let foundWeather = data.find(hahah => hahah.weather === queriedWeather);
-    response.status(200).send(`You are looking for a ${queriedWeather}`);
   } catch (error) {
     next(error);
   }
@@ -61,11 +63,11 @@ app.get('/weather', (request, response) => {
 
 
 
-class hahah {
-  constructor(weatherObj){
-    this.state = {
-      
-    };
+class Forecast {
+  constructor(dayObj){
+    this.date = dayObj.valid_date;
+    this.description = dayObj.weather.description;
+
   }
 }
 
@@ -77,4 +79,5 @@ app.get('*', (request, response) => {
 // **** ERROR HANDLING - PLUG AND PLAY CODE FROM EXPRESS DOCS ****
 app.use((error, request, response, next) => {
   response.status(500).send(error.message);
+  console.log(next);
 });
