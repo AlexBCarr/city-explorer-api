@@ -10,11 +10,11 @@ async function getMovie (request, response, next){
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_DB_KEY}&query=${city}`;
     let movieResultsFromAxios = await axios.get(url);
 
-    let moviesToSendFront = movieResultsFromAxios.data.results.map(movieData => new Movie(movieData));
+    let moviesToSendOut = movieResultsFromAxios.data.results.map(movieData => new Movie(movieData));
 
-    console.log(moviesToSendFront);
+    console.log(moviesToSendOut);
 
-    response.status(200).send(moviesToSendFront);
+    response.status(200).send(moviesToSendOut);
 
   } catch (error) {
     next(error);

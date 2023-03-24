@@ -10,9 +10,9 @@ async function getWeather (request, response, next){
     let weatherResults = await axios.get(url);
     console.log(weatherResults.data);
 
-    let weatherToSendFrontEnd = weatherResults.data.data.map(dayObj => new Forecast(dayObj));
+    let weatherToSendOut = weatherResults.data.data.map(dayObj => new Forecast(dayObj));
 
-    response.status(200).send(weatherToSendFrontEnd);
+    response.status(200).send(weatherToSendOut);
 
   } catch (error) {
     next(error);
